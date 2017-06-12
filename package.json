@@ -1,0 +1,41 @@
+{
+  "name": "news-scraper",
+  "version": "1.0.0",
+  "description": "Display news articles and track user comments",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rdhenderson/news-scraper.git"
+  },
+  "keywords": [
+    "cheerio",
+    "scrape",
+    "news",
+    "mongodb",
+    "mongoose"
+  ],
+  "author": "Reid Henderson <reid.henderson@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rdhenderson/news-scraper/issues"
+  },
+  "homepage": "https://github.com/rdhenderson/news-scraper#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cheerio": "^1.0.0-rc.1",
+    "express": "^4.15.3",
+    "express-handlebars": "^3.0.0",
+    "mongojs": "^2.4.0",
+    "mongoose": "^4.10.5",
+    "morgan": "^1.8.2",
+    "path": "^0.12.7",
+    "request": "^2.81.0"
+  },
+  "engines": {
+    "node": "8.1.0",
+    "npm": "5.0.3"
+  }
+}

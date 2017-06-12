@@ -1,0 +1,16 @@
+<div id="accordion" class="news" role="tablist">
+  <label id="headline-list-head" data-toggle="collapse" data-target="#headline-list"> <h2> Latest Headlines </h2></label>
+  <div id="headline-list" class="collapse show">
+  {{#each headline}}
+  <div class="card">
+    <div class="card-header-search" role="tab" id="article-{{_id}}">
+      <h5 class="mb-0">
+        <h3 data-parent="#accordion">
+          {{title}}
+        </h3>
+      </h5>
+    </div>
+  </div>
+  {{/each}}
+</div>
+</div>
