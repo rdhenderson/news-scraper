@@ -19,8 +19,9 @@ const Comment = require('./models/comment.js')
 // Database configuration
 // Set mongoose promise model
 mongoose.Promise = Promise;
-const database = "news-scraper";
-mongoose.connect(`mongodb://localhost/${database}`);
+const devConnection = 'mongodb://localhost/news-scraper';
+const prodConnection = "mongodb://heroku_4dn336kv:lmha730iil25i9heh19sk6i689@ds125262.mlab.com:25262/heroku_4dn336kv";
+mongoose.connect(process.env.MONGODB_URI || devConnection);
 const db = mongoose.connection; //Save mongoose default connection
 
 
