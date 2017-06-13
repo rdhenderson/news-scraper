@@ -28,6 +28,7 @@
     "cheerio": "^1.0.0-rc.1",
     "express": "^4.15.3",
     "express-handlebars": "^3.0.0",
+    "grunt": "^1.0.1",
     "mongojs": "^2.4.0",
     "mongoose": "^4.10.5",
     "morgan": "^1.8.2",
@@ -37,5 +38,12 @@
   "engines": {
     "node": "8.1.0",
     "npm": "5.0.3"
+  },
+  "devDependencies": {
+    "grunt-concurrent": "^2.3.1",
+    "grunt-contrib-handlebars": "^1.0.0",
+    "grunt-contrib-nodemon": "^0.5.4",
+    "grunt-contrib-watch": "^1.0.0",
+    "open": "0.0.5"
   }
 }

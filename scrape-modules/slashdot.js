@@ -3,7 +3,7 @@ const Resource = require('./resource.js');
 const cheerio = require('cheerio');
 const Article = require('../models/article.js');
 
-function parseSlashDot ($) {
+function parseSlashdot ($) {
   let results = [];
   $('article[id*="firehose-"]').each((i, elem) => {
     const link = 'https:' + $(elem).find(".story-title").children('a').eq(0).attr("href");
@@ -14,7 +14,13 @@ function parseSlashDot ($) {
   });
   return results;
 }
-
-const slashdot = new Resource('slashdot', Article, 'https://www.slashdot.org', parseSlashDot);
+const slashdotObj = {
+  requestQuery : 'https://www.slashdot.org',
+  name: 'slashdot',
+  displayName: 'SlashDot.org',
+  parseFn: parseSlashdot,
+  model : Article,
+}
+const slashdot = new Resource(slashdotObj);
 
 module.exports = slashdot;

@@ -43,7 +43,13 @@ function parseESPNDetail(item) {
    });
  });
 }
-
-const espn = new Resource('espn', Article, 'https://www.espnfc.us', parseESPN);
+const espnObj = {
+  requestQuery : 'https://www.espnfc.us',
+  name: 'espn',
+  displayName: 'ESPN FC',
+  parseFn: parseESPN,
+  model : Article,
+}
+const espn = new Resource(espnObj);
 
 module.exports = espn;

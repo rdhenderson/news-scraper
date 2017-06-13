@@ -1,18 +1,20 @@
 const request = require('request');
 const cheerio = require('cheerio');
 
-function Resource (name, model, url, parseFn) {
-  this.url = url;
-  this.parseFn = parseFn;
-  this.model = model;
+function Resource (obj) {
+  this.name = obj.name;
+  this.displayName = obj.displayName;
+  this.query = obj.requestQuery;
+  this.parseFn = obj.parseFn;
+  this.model = obj.model;
 }
 
 Resource.prototype.scrape =  function() {
     return new Promise( (resolve, reject) => {
-      request(this.url, (err, result, body) => {
+      request(this.requestQuery, (err, result, body) => {
         const $ = cheerio.load(body);
         if (err) return handleError(err);
-        return resolve(this.parseFn($));
+        return resolve(this.parseFn($, result, body));
       });
     });
   };
@@ -27,7 +29,7 @@ Resource.prototype.updateDatabase = function (data) {
           }
         });
       });
-      return resolve();
+      resolve();
     });
   };
 

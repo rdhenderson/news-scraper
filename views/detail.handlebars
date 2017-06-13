@@ -1,0 +1,72 @@
+<!-- Handlebars Article Detail Template -->
+
+<div class="row">
+  <div class="col-md-12 title-row">
+    <h2 class="title"> {{article.title}} </h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 detail-div"> {{{article.detail}}} </div>
+</div>
+<div class="row">
+  <div class="col-md-12 news" role="tablist">
+    <button id="add-favorite" type="button" class="custom-btn btn btn-md btn-primary btn-block" data-id="{{article._id}}">
+      Add To Favorites
+    </button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 news" role="tablist">
+    <button id="comment-form-toggle" type="button" class="custom-btn btn btn-md btn-primary btn-block" data-target="#comment-form" data-toggle="collapse">
+      Add Comment
+    </button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <form id="comment-form" class="collapse" onsubmit="submitComment();">
+      <div class="form-group row">
+        <label for="comment-title" class="col-sm-2 col-form-label">User Name</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="comment-user" placeholder="Username">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="comment-title" class="col-sm-2 col-form-label">Title:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="comment-title" placeholder="Title">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="comment-body" class="col-sm-2 col-form-label">Comment:</label>
+        <div class="col-sm-10">
+          <textarea type="textarea" class="form-control" id="comment-body" rows="6" placeholder="Comment..."></textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+      <div class="offset-sm-2 col-sm-10">
+        <button id="comment-submit" data-id="{{article._id}}" type="submit" class="custom-btn btn btn-md btn-primary">Submit Comment</button>
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
+  {{#if article.comments}}
+    <div class="row">
+      <div class="col-md-12">
+        <button id="comment-history-toggle" type="button" class="custom-btn btn btn-md btn-primary btn-block" data-target="#comment-history" data-toggle="collapse">
+          Show comments
+        </button>
+  {{/if}}
+    <div id="comment-history" class="collapse">
+      {{#each article.comments}}
+        <div class="card">
+          <div class="card-block">
+            <h4 class="card-title">{{title}}</h4>
+            <p class="card-text">{{body}}</p>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</div>
