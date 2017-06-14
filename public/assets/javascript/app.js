@@ -1,4 +1,4 @@
-let userId;
+let userSet = false;
 // Grab the articles as a json
 $(document).ready(function(){
   // Get list of resources to populate source-select
@@ -9,24 +9,18 @@ $(document).ready(function(){
   $('#source-select').on('change', getArticles);
   $(document).on("click", ".headline", setDetail);
   $("#user-submit").on("click", setUser);
-  $(document).on("click", "#comment-form-toggle", () =>
-    $("#comment-form").toggle()
-  );
   $(document).on("click", "#add-favorite", addFavorite);
-  $(document).on("click", "#comment-history-toggle", () =>
-      $("#comment-history").toggle()
-  );
+  $("#user-info").on("click", ".favorite-item", setDetail)
   $(document).on("click", "#comment-submit", submitComment);
-  // $(document).on('keypress', '#comment-body', function(e){
-  //   console.log("Hit a button", e.which);
-  //      if(e.which == 13){//Enter key pressed
-  //          $('#comment-submit').click();//Trigger search button click event
-  //      }
-  //  });
 
 });
 
+//Add favorite if user has been set
 function addFavorite() {
+  if (!userSet) {
+    alert("Please login to add a favorite");
+    return false;
+  }
   const articleId = $(this).attr("data-id");
   console.log("Current User", userId);
   $.ajax({
@@ -38,25 +32,34 @@ function addFavorite() {
     },
   })
   .done( (data) => {
-    console.log("Received data", data);
+    console.log("Added Favorite data", data);
+    updateFavorites(data);
   });
 }
+
 function setUser() {
   event.preventDefault();
-  console.log("USER NAME:", $("#user-name").val());
   $.ajax({
     method: "POST",
-    url: `/users`,
+    url: '/user',
     data: {
       name: $("#user-name").val(),
     },
   })
   .done( (data) => {
-    console.log("Received data", data);
-    $("#user-name").val("");
+    console.log("setUser data", data);
+    userSet = true;
+    // Set userId for session and update favorite items
     userId = data._id;
-    console.log("USER id", userId);
+    updateFavorites(data);
   });
+}
+
+function updateFavorites(user){
+  console.log("Updating favorites", user.name);
+  const favoriteMenu = Template.favorites({user});
+  console.log("Favorite Menu", favoriteMenu);
+  $("#user-info").empty().append(favoriteMenu);
 }
 
 function getResourceNames() {

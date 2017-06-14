@@ -2,15 +2,15 @@ body {
   background-color: #60aeb7;
   color: #501515;
 }
-#red {
+.red {
   color: rgb(210, 115, 119);
 }
 
-#blue {
+.blue {
   color: rgb(114, 174, 234);
 }
 
-#green {
+.green {
   color: #90ee90;
 }
 
@@ -36,6 +36,7 @@ body {
   color: #501515;
   margin-bottom: 15px;
 }
+
 #headline-list {
   max-height: 700px;
   overflow-y: auto;

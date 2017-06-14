@@ -14,7 +14,7 @@ const Comment = require('./models/comment.js')
 const PORT = process.env.PORT || 8080;
 const database = {
   'development' : 'mongodb://localhost/news-scraper',
-  'production' : "mongodb://heroku_4dn336kv:lmha730iil25i9heh19sk6i689@ds125262.mlab.com:25262/heroku_4dn336kv",
+  'production' : "mongodb://heroku_wwwj0xp6:f5d5p1mv3o9jq94lhui18tkvcv@ds149207.mlab.com:49207/heroku_wwwj0xp6",
 };
 
 const env = process.env.NODE_ENV || 'development';
@@ -30,7 +30,6 @@ app.use(express.static("public"));
 // Database configuration
 // Set mongoose promise model
 mongoose.Promise = Promise;
-
 mongoose.connect(database[env]);
 const db = mongoose.connection; //Save mongoose default connection
 

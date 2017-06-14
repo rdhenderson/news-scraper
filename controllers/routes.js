@@ -41,15 +41,6 @@ module.exports = function routes(app) {
     });
   });
 
-  // // Route to see what user looks like without populating
-  // app.get("/articles/all", function(req, res) {
-  //   Article.find({}, function(error, doc) {
-  //     // Send any errors to the browser
-  //     if (error) { res.send(error); }
-  //     else { res.send(doc); }
-  //   });
-  // });
-
   app.get("/articles/:source", function(req, res) {
     Article.find({'source' : req.params.source.trim()}, function(error, doc) {
       // Send any errors to the browser
@@ -70,13 +61,15 @@ module.exports = function routes(app) {
       }
     });
   });
-  app.post("/users", function (req,res) {
+  app.post("/user", function (req,res) {
     const query = {name: req.body.name}
     console.log("User request received", req.body);
-    // const options = {upsert: true, new: true};
-    User.create(req.body, function(err, user) {
-        if (err) console.log("Error", err);
-        res.send(user)
+    User.findOrCreate(query, (err, user) => {
+      // my new or existing model is loaded as result
+      if (err) console.log("ERROR", err);
+
+      // Send to favorites route to populate favorites for return
+      res.redirect(`/favorites/${user._id}`);
     });
   });
 
@@ -94,11 +87,13 @@ module.exports = function routes(app) {
   app.post("/favorites", function (req,res) {
     console.log("Request received", JSON.stringify(req.body, null, 2));
     const query = {_id: req.body.userId};
-    // const options = {upsert: true, new: true, runValidators: true};
+
+    // {new: true} sets query to return updated object rather than original
     User.findOneAndUpdate(query, {$push: {favorites: req.body.articleId}}, {new:true})
       .populate("favorites")
       .exec(function(err, user) {
         if (err) return console.log("Error", err);
+        console.log("user", user);
         res.send(user);
     });
   });
