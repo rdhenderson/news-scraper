@@ -4,12 +4,13 @@ const cheerio = require('cheerio');
 function Resource (obj) {
   this.name = obj.name;
   this.displayName = obj.displayName;
-  this.query = obj.requestQuery;
+  this.requestQuery = obj.requestQuery;
   this.parseFn = obj.parseFn;
   this.model = obj.model;
 }
 
 Resource.prototype.scrape =  function() {
+  // console.log("Requesting ", this.reqeustQuery)
     return new Promise( (resolve, reject) => {
       request(this.requestQuery, (err, result, body) => {
         const $ = cheerio.load(body);
