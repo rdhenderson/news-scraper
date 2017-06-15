@@ -2,7 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 // const path = require('path');
-const logger = require('morgan');
+// const logger = require('morgan');
 const bodyParser = require('body-parser');
 
 // Mongo Models
@@ -17,6 +17,7 @@ const database = {
 };
 
 console.log('production:', process.env.MONGODB_URI);
+console.log('production:', JSON.stringify(process.env));
 
 const env = process.env.NODE_ENV || 'development';
 // Setup Mongoose and add promise model
