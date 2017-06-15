@@ -1,19 +1,16 @@
 // Require mongoose
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-
-// Plugin to find or create user
+// Plugin to search for entry and create if not found
 const findOrCreate = require('mongoose-find-or-create');
 
-// Create the Note schema
+const Schema = mongoose.Schema;
 const UserSchema = new Schema({
-  // Just a string
   name: {
     type: String,
     required: true,
     unique: true,
   },
-  // Track user comments
+  // TODO: Currently not tracking user comments
   comments: [
     {
       type: Schema.Types.ObjectId,
@@ -32,7 +29,7 @@ const UserSchema = new Schema({
 
 UserSchema.plugin(findOrCreate);
 
-// Remember, Mongoose will automatically save the ObjectIds of the notes
+// Remember, Mongoose will automatically save the ObjectIds of the comments/favorites
 // These ids are referred to in the Article model
 
 // Create and Export the model

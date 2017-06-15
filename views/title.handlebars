@@ -1,15 +1,16 @@
 <!-- Handlebars Article Headline Template -->
 <div class="news" role="tablist">
-  <h2> Latest Headlines </h2>
-  <div id="headline-list" class="collapse show">
-  {{#each headline}}
-  <div class="card">
-    <div class="card-header-search headline" data-id="{{_id}}" role="tab">
-      <h5 data-parent="#accordion">
-        {{title}}
-      </h5>
-    </div>
+  <label id="headline-list-head">
+    <h2> Latest Headlines </h2>
+  </label>
+
+  <div id="headline-list">
+    {{#each headline}}
+      <div class="card">
+        <div class="card-header headline js-headline" data-id="{{_id}}" role="tab">
+          <h5> {{title}} </h5>
+        </div>
+      </div>
+    {{/each}}
   </div>
-  {{/each}}
-</div>
 </div>

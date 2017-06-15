@@ -19,45 +19,32 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item select">
-          <select id="source-select" class="custom-select">
+          <select id="js-source-select" class="custom-select">
              <option value="slashdot" selected>Select a Source</option>
            </select>
         </li>
       </ul>
-      <div id="user-info">
-        <form id="user-form" class="form-inline my-2 my-lg-0">
-          <input id="user-name" class="form-control mr-sm-2" type="text" placeholder="Username">
-          <button id="user-submit" class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+      <div id="js-user-info">
+        <form id="js-user-form" class="form-inline my-2 my-lg-0">
+          <input id="js-user-name" class="form-control mr-sm-2" type="text" placeholder="Username">
+          <button id="js-user-submit" class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
         </form>
       </div>
 
     </div>
   </nav>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4"> <!--left nav bar-->
-       <div id="headlines"></div>
-     </div>
-    <div id="article-display" class="col-md-8">
-      <div id="details"> </div>
+    <!-- Main body of page -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4"> <!--left nav bar-->
+         <div id="js-headlines"></div>
+       </div>
+      <div id="js-article-display" class="col-md-8">
+        <div id="js-details"> </div>
+      </div>
     </div>
   </div>
-</div>
-
-    <!--Footer-->
-  <!-- <nav class="navbar fixed-bottom navbar-light bg-faded row">
-      <div id="footer" class="center padding col-md-12">
-          <div class="right">
-            <img class="center social" src="./assets/images/facebook.png" alt="FaceBook Log">
-            <img class="center social" src="./assets/images/instagram.png" alt="Instagram Logo">
-            <img class="center social" src="./assets/images/twitter.png" alt="Twitter Logo">
-          </div>
-          <div class="padding">
-            <p>© 2017 Simplify My News</p>
-          </div>
-        </div>
-  </nav> -->
 
   <!-- LINK JAVASCRIPT INCLUDES HERE -->
   <script

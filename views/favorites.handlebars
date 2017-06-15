@@ -5,7 +5,9 @@
   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="user-dropdown">
     {{#if user.favorites}}
       {{#each user.favorites}}
-        <button class="dropdown-item favorite-item" data-id={{_id}} type="button">{{title}}</button>
+        <button class="dropdown-item js-favorite-item" data-id="{{_id}}" type="button">
+          {{title}}
+        </button>
       {{/each}}
     {{else}}
       <button class="dropdown-item" type="button">No Favorites Here</button>
