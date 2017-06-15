@@ -1,17 +1,8 @@
 
 // Require news resources
-const espn = require('./espn.js');
-const slashdot = require('./slashdot.js');
+const espn = require('../scrape-modules/espn.js');
+const slashdot = require('../scrape-modules/slashdot.js');
+const wired = require('../scrape-modules/wired.js');
 
-const newsManager = {
-  resources : {
-    "espn" : espn,
-    "slashdot" : slashdot
-  },
-  getArticles : getArticles,
-  scrapeAll : scrapeAll
-};
-
-function getArticles(sourceName) {
-  newsManager.resource
-}
+// export resource array
+module.exports = [espn, slashdot, wired];

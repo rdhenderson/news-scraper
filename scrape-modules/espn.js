@@ -20,7 +20,7 @@ function parseDetail(item) {
       if (err) return console.log(err);
       const $ = cheerio.load(body);
       const title = $('h1').html();
-      let detail = `<h1>${title}</h1>`;
+      let detail = '';
       $('.above-fold').find('h2, p')
         .each((index, element) => detail += $(element));
       return resolve(detail);
