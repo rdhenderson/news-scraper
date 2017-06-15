@@ -1,6 +1,6 @@
-module.exports = function(grunt) {
+const PORT = 3000;
 
-  // require('load-grunt-tasks')(grunt);
+module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -12,13 +12,20 @@ module.exports = function(grunt) {
         }
       }
   },
+  sass: {
+    dist: {
+      files: {
+        './public/assets/css/style.css': './sass/style.scss'
+      }
+    }
+  },
   nodemon: {
     dev: {
       script: 'server.js',
       options: {
         //  nodeArgs: [],
         env: {
-          PORT: '3000',
+          PORT: PORT,
           // DB_NAME: "rtfm"
         },
         // omit this property if you aren't serving HTML files and
@@ -32,7 +39,7 @@ module.exports = function(grunt) {
           nodemon.on('config:update', function () {
             // Delay before server listens on port
             setTimeout(function() {
-              require('open')('http://localhost:8080');
+              require('open')(`http://localhost:${PORT}`);
             }, 1000);
           });
 
@@ -55,6 +62,13 @@ module.exports = function(grunt) {
         files: ['views/*.handlebars'],
         tasks: ['process'],
       },
+      css: {
+				files: '**/*.scss',
+				tasks: ['sass'],
+        options: {
+          livereload: true
+        },
+			},
       server: {
         files: ['.rebooted'],
       },
@@ -62,7 +76,7 @@ module.exports = function(grunt) {
       // Here we watch the files the sass task will compile to
       // These files are sent to the live reload server after sass compiles to them
         options: { livereload: true },
-        files: ['public/assets/css/*.css', 'server.js','controllers/*.js', 'public/*.html']
+        files: ['**/css/*.css', 'server.js','controllers/*.js', 'public/*.html']
     },
     },
     handlebars: {
@@ -79,11 +93,13 @@ module.exports = function(grunt) {
       }
     }
   });
-grunt.registerTask('default', ['handlebars', 'concurrent']);
+grunt.registerTask('default', ['handlebars', 'sass', 'concurrent']);
 grunt.registerTask('process', ['handlebars:compile']);
 
 grunt.loadNpmTasks('grunt-contrib-handlebars');
 grunt.loadNpmTasks('grunt-contrib-watch');
 grunt.loadNpmTasks('grunt-contrib-nodemon');
 grunt.loadNpmTasks('grunt-concurrent');
+grunt.loadNpmTasks('grunt-contrib-sass');
+
 };
