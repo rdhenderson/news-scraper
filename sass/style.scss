@@ -1,0 +1,72 @@
+$main-bg : #60aeb7;
+$main-text : #501515;
+$detail-bg : #c1ddf9;
+$headline-bg : #d2b45b;
+
+body {
+  background-color: $main-bg;
+  color: $main-text;
+}
+
+h2 {
+  text-align: center;
+}
+
+.red {
+  color: #9C5C5F;
+}
+
+.blue {
+  color: #72AEEA;
+}
+
+.green {
+  color: #90ee90;
+}
+
+.title-row {
+  min-height: 120px;
+  margin-bottom: 20px;
+  padding-bottom: 30px;
+}
+
+.title {
+  position: relative;
+  top: 50px;
+}
+
+.detail-div {
+  background-color: $detail-bg;
+  padding: 15px;
+  max-height: 500px;
+  overflow-y: scroll;
+}
+
+.custom-select{
+  background-color: $headline-bg;
+  color: $main-text;
+  margin-bottom: 15px;
+}
+
+#headline-list {
+  max-height: 700px;
+  overflow-y: auto;
+}
+
+.headline {
+  background-color: $headline-bg;
+  color: $main-text;
+  padding: 10px;
+}
+
+.custom-h1 {
+  font-size: 36px;
+}
+.custom-btn {
+  margin: 10px;
+  text-align: center;
+}
+
+.active {
+  color: red;
+}

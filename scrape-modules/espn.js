@@ -3,53 +3,53 @@ const request = require('request');
 const cheerio = require('cheerio');
 const Article = require('../models/article.js');
 
-function parseESPN ($) {
-  let results = [];
-  $(".grid-item-content").find(".text-content").find("h2").each((i, elem) => {
-    const link = $(elem).children("a").attr("href");
-    const title = $(elem).children("a").text();
-    results.push({link: link, title: title, source: "espn"});
+function parse($) {
+  const results = [];
+  $('.grid-item-content').find('.text-content').find('h2').each((i, elem) => {
+    const rawLink = $(elem).children('a').attr('href');
+    const link = (rawLink[0] !== '/') ? rawLink : `http://www.espnfc.us/${rawLink}`;
+    const title = $(elem).children('a').text();
+    results.push({ link, title, source: 'espn' });
   });
+  return results;
+}
 
-  let detailPromises = results.map( (item) => {
-    return parseESPNDetail(item)
-    .then( (detail) => {
-      item.detail = detail;
-      return item;
+function parseDetail(item) {
+  return new Promise((resolve) => {
+    request(item.link, (err, result, body) => {
+      if (err) return console.log(err);
+      const $ = cheerio.load(body);
+      const title = $('h1').html();
+      let detail = `<h1>${title}</h1>`;
+      $('.above-fold').find('h2, p')
+        .each((index, element) => detail += $(element));
+      return resolve(detail);
     });
   });
-
-  return Promise.all(detailPromises).then( (data) => {
-      // console.log(data);
-      return data;
-    }).catch( (err) => console.log("ERROR: ", err));
 }
 
-//Figure out how to call this function in the flow
-function parseESPNDetail(item) {
-  return new Promise( (resolve, reject) => {
-    if (!item.link.includes("http")) item.link = "http://www.espnfc.us" + item.link;
-    request(item.link, (err, result, body) => {
-     if (err) return console.log(err);
-     const $ = cheerio.load(body);
-     let title = $("h1").html();
-     let detail = "<h1>" + title + "</h1>";
-     $(".above-fold").find("h2, p").each( function() {
-      //  const tag = this.name;
-       detail += $(this);
-       // detail += `<${tag}>`+ $(this).text() + `</${tag}>`;
-     });
-     resolve(detail);
-   });
- });
+function parseAllDetails(results) {
+  const detailPromises = results.map(item =>
+    parseDetail(item)
+      .then(detail => Object.assign({}, item, { detail })));
+
+  return Promise.all(detailPromises)
+    .then(data => data)
+    .catch(err => console.log('ERROR: ', err));
 }
+
+const parseESPN = ($) => {
+  const results = parse($);
+  return parseAllDetails(results);
+};
+
 const espnObj = {
-  requestQuery : 'https://www.espnfc.us',
+  requestQuery: 'https://www.espnfc.us',
   name: 'espn',
   displayName: 'ESPN FC',
   parseFn: parseESPN,
-  model : Article,
-}
+  model: Article,
+};
 const espn = new Resource(espnObj);
 
 module.exports = espn;
